@@ -70,12 +70,7 @@ This project demonstrates five small-scale case studies using Python's data anal
 - Plots for sales and temperature trends.
 - Print statements summarizing key insights from each case study.
 
----
 
-## 🛠 How to Run
 
-1. Make sure you have Python 3.x installed.
-2. Install the required libraries:
-   ```bash
   
 
