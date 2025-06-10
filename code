@@ -1,0 +1,66 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# CASE STUDY 1
+students_df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Eva'],
+    'Math_Score': [85, 90, 78, 92, 88],
+    'English_Score': [80, 88, 75, 95, 82],
+    'Science_Score': [92, 85, 89, 78, 94]
+})
+students_df['Average_Score'] = students_df[['Math_Score', 'English_Score', 'Science_Score']].apply(lambda row: row.mean(), axis=1)
+highest_total_student = students_df.iloc[students_df[['Math_Score', 'English_Score', 'Science_Score']].sum(axis=1).idxmax()]
+improvement_needed = students_df[students_df['Average_Score'] < 80]
+
+# CASE STUDY 2
+sales_df = pd.DataFrame({
+    'Date': ['2023-01-01', '2023-01-02', '2023-01-03', '2023-01-04', '2023-01-05'],
+    'Product A': [120, 150, 200, 180, 210],
+    'Product B': [80, 90, 75, 100, 110]
+})
+sales_df['Date'] = pd.to_datetime(sales_df['Date'])
+sales_df['Total_Sales'] = sales_df.iloc[:, 1:].apply(lambda row: row.sum(), axis=1)
+highest_sales = sales_df.loc[sales_df['Total_Sales'].idxmax()]
+sales_df.plot(x='Date', y=['Product A', 'Product B'], figsize=(8, 5), title='Sales Trends')
+plt.xlabel('Date')
+plt.ylabel('Sales')
+plt.show()
+
+# CASE STUDY 3
+matrix_a = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+matrix_b = np.array([[9, 8, 7], [6, 5, 4], [3, 2, 1]])
+add_matrices = matrix_a + matrix_b
+subtract_matrices = matrix_a - matrix_b
+dot_product_result = np.dot(matrix_a, matrix_b)
+transpose_matrix_a, transpose_matrix_b = matrix_a.T, matrix_b.T
+
+# CASE STUDY 4
+employee_df = pd.DataFrame({
+    'Employee ID': [101, 102, 103, 104, 105],
+    'Name': ['John', 'Alice', 'Bob', 'Eva', 'Charlie'],
+    'Department': ['HR', 'Engineering', 'Marketing', 'HR', 'Engineering'],
+    'Salary': [60000, 75000, 80000, 65000, 70000]
+})
+department_avg_salary = employee_df.groupby('Department')['Salary'].apply(lambda x: x.mean())
+highest_paid_employee = employee_df.iloc[employee_df['Salary'].idxmax()]
+employee_df['Bonus'] = employee_df['Salary'].apply(lambda x: x * 0.1)
+
+# CASE STUDY 5
+temperature_df = pd.DataFrame({
+    'Date': pd.date_range(start='2023-01-01', end='2023-01-10'),
+    'City A': [25.5, 26.2, 24.8, 23.5, 22.9, 27.0, 26.5, 25.8, 24.0, 23.2],
+    'City B': [22.0, 21.5, 23.8, 25.0, 24.5, 22.5, 21.0, 23.2, 24.5, 25.0]
+})
+average_temperatures = temperature_df.iloc[:, 1:].mean()
+highest_temp_city_a = temperature_df.iloc[temperature_df['City A'].idxmax()]
+temperature_df.plot(x='Date', y=['City A', 'City B'], figsize=(8, 5), title='Temperature Trends')
+plt.xlabel('Date')
+plt.ylabel('Temperature (°C)')
+plt.show()
+
+print("CASE STUDY 1:\n", students_df, "\nHighest Total Score:\n", highest_total_student, "\nNeeds Improvement:\n", improvement_needed)
+print("\nCASE STUDY 2:\n", sales_df, "\nHighest Sales Day:\n", highest_sales)
+print("\nCASE STUDY 3:\nElement-Wise Addition:\n", add_matrices, "\nElement-Wise Subtraction:\n", subtract_matrices, "\nDot Product:\n", dot_product_result, "\nTranspose of Matrix A:\n", transpose_matrix_a, "\nTranspose of Matrix B:\n", transpose_matrix_b)
+print("\nCASE STUDY 4:\nAverage Salary by Department:\n", department_avg_salary, "\nHighest Paid Employee:\n", highest_paid_employee, "\nEmployee Data with Bonus:\n", employee_df)
+print("\nCASE STUDY 5:\nAverage Temperatures:\n", average_temperatures, "\nDate with Highest Temp in City A:\n", highest_temp_city_a)
